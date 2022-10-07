@@ -11,6 +11,7 @@ const { checkBody } = require("../modules/checkBody");
 //User.findOne
 router.post("/", (req, res) => {
   if (!checkBody(req.body, ["username"])) {
+    console.log(req.body);
     res.json({ result: false, error: "Missing username" });
     return;
   }
@@ -46,6 +47,15 @@ router.delete("/", (req, res) => {
       res.json({ result: true });
     }
   });
+});
+
+
+
+// GET: get all the tweets
+router.get("/", (req, res) => {
+  Tweet.find().then(data => {
+    res.json({ result: true, tweets: data});
+   });
 });
 
 module.exports = router;
